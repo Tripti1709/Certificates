@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Training Application</title>
+    <link rel="stylesheet" href="style.css"> <!-- corrected filename -->
+</head>
+<body>
+    <div class="container">
+        <!-- Video Section -->
+        <div class="video-section">
+            <h1>Watch the Video</h1>
+            <div class="video-container">
+                <video id="trainingVideo" controls poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQwIiBoZWlnaHQ9IjM2MCIgdmlld0JveD0iMCAwIDY0MCAzNjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iMzYwIiBmaWxsPSIjMDAwMDAwIi8+Cjx0ZXh0IHg9IjMyMCIgeT0iMTgwIiBmaWxsPSIjRkZGRkZGIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiPlRyYWluaW5nIFZpZGVvPC90ZXh0Pgo8c3ZnIHg9IjMwMCIgeT0iMTYwIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiNGRkZGRkYiPgo8cD48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjEpIi8+Cjxwb2x5Z29uIHBvaW50cz0iMTUsMTIgMjgsMjAgMTUsMjgiIGZpbGw9IiNGRkZGRkYiLz4KPC9wPgo8L3N2Zz4KPC9zdmc+">
+                    <source src="your-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="completion-overlay" id="completionOverlay">
+                    <div class="completion-content">
+                        <div class="check-icon">✓</div>
+                        <h3>Video Completed!</h3>
+                        <p>You can now proceed to fill the form</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h2>Instructions</h2>
+            <div class="instruction-box">
+                <ol>
+                    <li>
+                        <span class="step-number">1</span>
+                        <span>Watch the complete video to unlock the form</span>
+                    </li>
+                    <li>
+                        <span class="step-number">2</span>
+                        <span>After video completion, fill the form and generate your certificate</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Certificate Form -->
+        <div class="form-section" id="certificateForm">
+            <div class="form-card">
+                <div class="form-header">
+                    <h2>Generate Your Certificate</h2>
+                    <p>Complete the form below to receive your training certificate</p>
+                </div>
+                
+                <form id="certForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                            <div class="error-message" id="firstNameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                            <div class="error-message" id="lastNameError"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+                    <!-- Add after last name field -->
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="text" id="phone" name="phone" placeholder="Enter your phone number" required>
+                        <div class="error-message" id="phoneError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="userImage">Upload Your Picture *</label>
+                        <input type="file" id="userImage" name="userImage" accept="image/*" required>
+                        <div class="error-message" id="imageError"></div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the terms and conditions and confirm that I have completed the training video. *</label>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                        <span class="btn-icon">🏷️</span>
+                        Generate Certificate
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="success-icon">🏷️</div>
+                <h3>Certificate Generated!</h3>
+                <p>Your training certificate has been generated successfully.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="downloadBtn">
+                    <span class="btn-icon">📥</span>
+                    Download Certificate
+                </button>
+                <button class="btn btn-secondary" id="emailBtn">
+                    <span class="btn-icon">📧</span>
+                    Email Certificate
+                </button>
+                <button class="btn btn-ghost" id="closeModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function generateCertificateCanvas(userName, phoneNumber) {
+            const img = new Image();
+            img.src = 'certificate-template.png';
+
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+
+                // Add user image
+                const userImageInput = document.getElementById('userImage');
+                const userImageFile = userImageInput.files[0];
+                if (userImageFile) {
+                    const userImage = new Image();
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        userImage.src = e.target.result;
+                        userImage.onload = function() {
+                            // Draw user image (adjust X, Y, width, height as needed)
+                            ctx.drawImage(userImage, 370, 150, 150, 150);
+
+                            // Draw user information after image is loaded
+                            drawUserInfoAndDownload(canvas, ctx, userName, phoneNumber);
+                        };
+                    };
+                    reader.readAsDataURL(userImageFile);
+                } else {
+                    // Draw user information if no image is uploaded
+                    drawUserInfoAndDownload(canvas, ctx, userName, phoneNumber);
+                }
+            };
+        }
+
+        function drawUserInfoAndDownload(canvas, ctx, userName, phoneNumber) {
+            ctx.font = 'bold 70px Arial';
+            ctx.fillStyle = '#000';
+            ctx.textAlign = 'center';
+ctx.drawImage(userImage, 850, 650, 180, 180);
+            const today = new Date();
+            const dateStr = today.toLocaleDateString('en-GB');
+            const validDate = new Date();
+            validDate.setMonth(validDate.getMonth() + 6);
+            const validStr = validDate.toLocaleDateString('en-GB');
+
+            const centerX = canvas.width / 2;
+            let startY = 1100;
+
+            ctx.fillText(`Name - ${userName}`, centerX, startY);
+            ctx.fillText(`Phone No - ${phoneNumber}`, centerX, startY + 90);
+            ctx.fillText(`Date - ${dateStr}`, centerX, startY + 180);
+            ctx.fillText(`Validation Date - ${validStr}`, centerX, startY + 270);
+
+            // Download the certificate
+            const link = document.createElement('a');
+            link.download = 'certificate.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Attach to download button
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const userName = `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`;
+            const phoneNumber = document.getElementById('phone').value;
+            generateCertificateCanvas(userName, phoneNumber);
+        });
+    </script>
+</body>
+</html>
